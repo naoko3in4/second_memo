@@ -22,3 +22,7 @@ Route::get('/', function () {
 Route::get('/memo', [
     MemoController::class, 'showMemo'
 ]);
+
+Route::post('/memo', [
+    MemoController::class, 'store'
+]);
