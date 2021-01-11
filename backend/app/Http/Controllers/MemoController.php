@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MemoController extends Controller
 {
-  public function showMemo()
+  public function list()
   {
     // メモを表示
     // memo.blade.php のフォームの入力値を取得
@@ -22,7 +22,12 @@ class MemoController extends Controller
     $memo_title = $request->input('title');
     $memo_content = $request->input('content');
     Memo::create(['title' => $memo_title, 'content' => $memo_content]);
-    return redirect('/memo');
-    // return redirect()->back()->with('success_message', 'SUCCESS!!');
+    return redirect()->back()->with('success_message', 'SUCCESS!!');
+  }
+
+  public function delete(Request $request)
+  {
+    Memo::destroy($request->input('ids'));
+    return redirect()->back()->with('success_message', 'SUCCESS!!');
   }
 }
