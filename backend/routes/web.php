@@ -20,9 +20,13 @@ Route::get('/', function () {
 });
 
 Route::get('/memo', [
-    MemoController::class, 'showMemo'
+    MemoController::class, 'list'
 ]);
 
 Route::post('/memo', [
     MemoController::class, 'store'
+]);
+
+Route::delete('/memo', [
+    MemoController::class, 'delete',
 ]);
