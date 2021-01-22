@@ -10,11 +10,19 @@ class MemoController extends Controller
   public function list()
   {
     // メモを表示
-    // memo.blade.php のフォームの入力値を取得
-    // memo.blade.phpに表示
     $memos = Memo::get();
-    return view('memo', ['memos' => $memos]);
+    return view('memo.index', ['memos' => $memos]);
   }
+
+  public function update(Request $request)
+  {
+    $memo = Memo::find($request);
+    $memo_title = $request->input('title');
+    $memo_content = $request->input('content');
+    $memo[0]->update(['title' => $memo_title, 'content' => $memo_content]);
+    return redirect('/memo');
+  }
+
 
   public function store(Request $request)
   {
@@ -22,12 +30,14 @@ class MemoController extends Controller
     $memo_title = $request->input('title');
     $memo_content = $request->input('content');
     Memo::create(['title' => $memo_title, 'content' => $memo_content]);
-    return redirect()->back()->with('success_message', 'SUCCESS!!');
+    //return redirect()->back()->with('success_message', 'SUCCESS!!');
+    return redirect('memo/');
   }
 
   public function delete(Request $request)
   {
     Memo::destroy($request->input('ids'));
-    return redirect()->back()->with('success_message', 'SUCCESS!!');
+    //return redirect()->back()->with('success_message', 'SUCCESS!!');
+    return redirect('/memo');
   }
 }
