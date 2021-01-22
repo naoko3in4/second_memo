@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\EditController;
 use App\Http\Controllers\MemoController;
+use App\Http\Controllers\TestController;
+use Egulias\EmailValidator\Warning\TLD;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,19 +17,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    logger('welcome route.');
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     logger('welcome route.');
+//     return view('welcome');
+// });
 
-Route::get('/memo', [
+Route::get('memo', [
     MemoController::class, 'list'
 ]);
 
-Route::post('/memo', [
+Route::post('memo', [
     MemoController::class, 'store'
 ]);
 
-Route::delete('/memo', [
+Route::delete('memo', [
     MemoController::class, 'delete',
+]);
+
+Route::resource('memo/edit', EditController::class);
+
+Route::put('/', [
+    MemoController::class, 'update'
 ]);
